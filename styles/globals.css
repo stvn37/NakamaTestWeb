@@ -1,16 +1,94 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+.notoSansJP {
+    font-family: "Noto Sans JP",sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+:root {
+    --mainBrown: #352E1D;
+    --mainDarkGreen: #3C4323;
+    --mainPlatinum: #EBEBEB;
+    --mainCream: #B7A57B;
+    --mainGreen: #C4CEA1;
 }
 
-* {
-  box-sizing: border-box;
+h1.entry-title {
+    color: #352E1D;
+    font-size: 28px;
+    text-align: center;
+    font-weight: lighter;
+    height: 10px;
+    padding: 30px;
 }
+
+ul.caption-style {
+    color:#B7A57B;
+}
+
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+ .container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.animated {
+    width: 400px;
+    height: 221px;
+    background-position: center;
+    background-size: cover;
+    background-image: '../img/nakama-chef.png';
+}
+
+.fadeInLeft {
+    -webkit-animation: fadeInLeft 1.2s both;
+    -moz-animation: fadeInLeft 1.2s both;
+    -o-animation: fadeInLeft 1.2s both;
+    animation: fadeInLeft 1.2s both;
+}
+
+@-webkit-keyframes fadeInLeft {
+    0%{
+        opacity: 0;
+        -webkit-transform: translateX(-50px);
+    }
+    100%{
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+@-moz-keyframes fadeInLeft {
+    0%{
+        opacity: 0;
+        -moz-transform: translateX(-50px);
+    }
+    100%{
+        opacity: 1;
+        -moz-transform: translateX(0);
+    }
+}
+@-o-keyframes fadeInLeft {
+    0%{
+        opacity: 0;
+        -o-transform: translateX(-50px);
+    }
+    100%{
+        opacity: 1;
+        -o-transform: translateX(0);
+    }
+}
+@keyframes fadeInLeft {
+    0%{
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+} */
