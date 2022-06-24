@@ -12,14 +12,45 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model Food {
+model Menu {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  image     String   
+  categoryid Int 
   title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-
-  @@index(authorId)
+  caption   String? 
+  recommend Boolean
+  spicy     Boolean
+  vege      Boolean
+  available Boolean @default(true)
+  price     Float    @db.Float
+  
+  category Category @relation(fields: [categoryid], references: [id])
 }
+
+model Category {
+  id        Int     @id @default(autoincrement())
+  name   String     @unique
+  menus     Menu[]
+}
+
+model Reservation {
+  id          Int     @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String
+  phoneNum    String
+  dateTime    DateTime
+  persons     Int
+}
+
+model Feedback {
+  id          Int     @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String
+  subject     String
+  message     String
+}
+
+
+

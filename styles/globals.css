@@ -15,13 +15,16 @@ h1.entry-title {
     font-size: 28px;
     text-align: center;
     font-weight: lighter;
-    height: 10px;
     padding: 30px;
 }
 
 ul.caption-style {
     color:#B7A57B;
 }
+
+
+
+
 
 /* body {
     display: flex;

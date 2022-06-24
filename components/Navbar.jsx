@@ -1,12 +1,12 @@
 import logo from '../img/nakama-logo.png'
 import Image from 'next/image'
-import {Container, Navbar, NavDropdown, Nav} from 'react-bootstrap'
+import {Container, Navbar, NavDropdown, Nav, Button} from 'react-bootstrap'
 import Link from 'next/link'
 
 export default function Navigation() {
     return (
        
-      <Navbar style={{backgroundColor:'#ededed', fontWeight:'bold'}} expand="lg"
+      <Navbar sticky="top" style={{backgroundColor:'#ededed', fontWeight:'bold'}} expand="lg"
       className='notoSansJP'>
       <Container>
         <Navbar.Brand href="#home">
@@ -16,26 +16,27 @@ export default function Navigation() {
         
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto mx-5 text-center">
+        <Navbar.Collapse id="basic-navbar-nav" >
+          <Nav className="me-auto mx-5 text-center" >
           <Link href='/' passHref><Nav.Link>Home</Nav.Link></Link>
             <Link href='/aboutus' passHref><Nav.Link>About</Nav.Link></Link>
+            <Link href='/promotion' passHref><Nav.Link>Promotion</Nav.Link></Link>
+            <Link href='/menu' passHref><Nav.Link>Menu</Nav.Link></Link>
 
-            <NavDropdown title="Menu" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">New Arrival</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Foods</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Drinks</NavDropdown.Item>
+            <NavDropdown title="Contact Us" id="basic-nav-dropdown">
+            <Link href="/reservation" passHref ><NavDropdown.Item className="text-center">Reservation</NavDropdown.Item></Link>
+            <Link href="/feedback" passHref ><NavDropdown.Item className="text-center">Feedback</NavDropdown.Item></Link>
             </NavDropdown>
 
-            <Nav.Link href="#link">Cart</Nav.Link>
-            <Nav.Link href="#link">Contact Us</Nav.Link>
             <Link href='/faq' passHref><Nav.Link>FAQ</Nav.Link></Link>
           </Nav>
-          <Nav className="ml-auto">
-          <Nav.Link href="#link">Login</Nav.Link>
-          <Nav.Link href="#link">Register</Nav.Link>
+          <Nav className="ml-auto text-center">
           </Nav>
+          
         </Navbar.Collapse>
+        <Nav.Link href="#link"><Button variant="outline-secondary" id="button-addon2">
+            Order
+          </Button></Nav.Link>
       </Container>
     </Navbar>
 
