@@ -18,9 +18,7 @@ export default function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="me-auto mx-5 text-center" >
-          <Link href='/' passHref><Nav.Link>Home</Nav.Link></Link>
-            <Link href='/aboutus' passHref><Nav.Link>About</Nav.Link></Link>
-            <Link href='/promotion' passHref><Nav.Link>Promotion</Nav.Link></Link>
+          
             <Link href='/menu' passHref><Nav.Link>Menu</Nav.Link></Link>
 
             <NavDropdown title="Contact Us" id="basic-nav-dropdown">
@@ -28,7 +26,7 @@ export default function Navigation() {
             <Link href="/feedback" passHref ><NavDropdown.Item className="text-center">Feedback</NavDropdown.Item></Link>
             </NavDropdown>
 
-            <Link href='/faq' passHref><Nav.Link>FAQ</Nav.Link></Link>
+            
           </Nav>
           <Nav className="ml-auto text-center">
           </Nav>

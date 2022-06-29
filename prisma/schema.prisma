@@ -52,5 +52,11 @@ model Feedback {
   message     String
 }
 
+model Order {
+  id        Int     @id @default(autoincrement())
+  uniqueid  Int
+  finish    Boolean     
+}
+
 
 

@@ -1,32 +1,24 @@
-import '../styles/globals.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import "@fontsource/noto-sans-jp"
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import "../styles/globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fontsource/noto-sans-jp";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import NextNProgress from "nextjs-progressbar";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }) {
- 
-  
-  return ( 
-    
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  return (
     <>
-    <NextNProgress 
-      color="#352e1d"
-      options={{showSpinner:false}}
-    />
-    <Navbar>
+      <SessionProvider session={session}>
+        <NextNProgress color="#352e1d" options={{ showSpinner: false }} />
+        <Navbar></Navbar>
 
-    </Navbar>
-    
-  <Component {...pageProps} />
+        <Component {...pageProps} />
 
-  <Footer/>
-
-  </>
-  )
+        <Footer />
+      </SessionProvider>
+    </>
+  );
 }
 
-export default MyApp
-
-
+export default MyApp;
