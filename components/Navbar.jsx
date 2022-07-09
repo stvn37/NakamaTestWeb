@@ -20,11 +20,7 @@ export default function Navigation() {
           <Nav className="me-auto mx-5 text-center" >
           
             <Link href='/menu' passHref><Nav.Link>Menu</Nav.Link></Link>
-
-            <NavDropdown title="Contact Us" id="basic-nav-dropdown">
-            <Link href="/reservation" passHref ><NavDropdown.Item className="text-center">Reservation</NavDropdown.Item></Link>
-            <Link href="/feedback" passHref ><NavDropdown.Item className="text-center">Feedback</NavDropdown.Item></Link>
-            </NavDropdown>
+            <Link href='/feedback' passHref><Nav.Link>Feedback</Nav.Link></Link>
 
             
           </Nav>

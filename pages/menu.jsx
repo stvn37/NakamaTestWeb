@@ -28,6 +28,8 @@ import prisma from "../prisma/client";
 export default function Menu({ menu, category }) {
   const router = useRouter ()
 
+
+  
   return (
     <section style={{ backgroundColor: "white" }}>
       <div className="notoSansJP">

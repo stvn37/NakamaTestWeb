@@ -15,7 +15,7 @@ export default function admin() {
     <section
       style={{ backgroundColor: "white", height: "800px", padding: "50px" }}
     >
-      <div className="notoSansJP">
+      <div className="notoSansJP text-center">
         <h1
           class="entry-title"
           itemProp="headline"
@@ -49,12 +49,24 @@ export default function admin() {
 
         {session && session.user.name}
 
-        <Button onClick={createOrder}  variant="primary" size="lg">
-          Create Order
+
+        <div className="notoSansJP text-center">
+        <h1
+          class="entry-title"
+          itemProp="headline"
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: "28px",
+            padding: "5px",
+          }}>Create New Order ID
+        </h1>
+        <Button onClick={createOrder}   variant="primary" size="lg">
+         Set New ID 
         </Button>{" "}
 
         {uniqueid}
-        
+        </div>
       </div>
     </section>
   );
