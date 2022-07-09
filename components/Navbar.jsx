@@ -1,39 +1,53 @@
-import logo from '../img/nakama-logo.png'
-import Image from 'next/image'
-import {Container, Navbar, NavDropdown, Nav, Button} from 'react-bootstrap'
-import Link from 'next/link'
+import logo from "../img/nakama-logo.png";
+import Image from "next/image";
+import { Container, Navbar, NavDropdown, Nav, Button } from "react-bootstrap";
+import Link from "next/link";
+import { useLocalStorage } from "@mantine/hooks";
+import { useRouter } from "next/router";
 
 export default function Navigation() {
+    const router = useRouter();
+    const [orderId, setOrderId] = useLocalStorage({
+        key: "orderid",
+        defaultValue: 0,
+    });
+
     return (
-       
-      <Navbar sticky="top" style={{backgroundColor:'#ededed', fontWeight:'bold'}} expand="lg"
-      className='notoSansJP'>
-      <Container>
-        <Navbar.Brand href="#home">
-        <div>
-        <Image src={logo} alt="" width="150" height="48"/>
-        </div>
-        
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" >
-          <Nav className="me-auto mx-5 text-center" >
-          
-            <Link href='/menu' passHref><Nav.Link>Menu</Nav.Link></Link>
-            <Link href='/feedback' passHref><Nav.Link>Feedback</Nav.Link></Link>
-
-            
-          </Nav>
-          <Nav className="ml-auto text-center">
-          </Nav>
-          
-        </Navbar.Collapse>
-        <Nav.Link href="#link"><Button variant="outline-secondary" id="button-addon2">
-            Order
-          </Button></Nav.Link>
-      </Container>
-    </Navbar>
-
-    )
-  }
-  
+        <Navbar
+            sticky="top"
+            style={{ backgroundColor: "#ededed", fontWeight: "bold" }}
+            expand="lg"
+            className="notoSansJP"
+        >
+            <Container>
+                <Navbar.Brand href="/">
+                    <div>
+                        <Image src={logo} alt="" width="150" height="48" />
+                    </div>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto mx-5 text-center">
+                        <Link href="/menu" passHref>
+                            <Nav.Link>Menu</Nav.Link>
+                        </Link>
+                        <Link href="/feedback" passHref>
+                            <Nav.Link>Feedback</Nav.Link>
+                        </Link>
+                    </Nav>
+                    <Nav className="ml-auto text-center"></Nav>
+                </Navbar.Collapse>
+                
+                <Nav.Link>
+                    <Button
+                        onClick={() => router.push(`/cart/${orderId}`)}
+                        variant="outline-secondary"
+                        id="button-addon2"
+                    >
+                        Cart
+                    </Button>
+                </Nav.Link>
+            </Container>
+        </Navbar>
+    );
+}

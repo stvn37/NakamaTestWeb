@@ -5,11 +5,16 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import NextNProgress from "nextjs-progressbar";
 import { SessionProvider } from "next-auth/react";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <SessionProvider session={session}>
+        <Head>
+            <title>NakamaResto</title>
+        </Head>
+
         <NextNProgress color="#352e1d" options={{ showSpinner: false }} />
         <Navbar></Navbar>
 
