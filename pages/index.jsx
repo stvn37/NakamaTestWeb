@@ -5,7 +5,6 @@ import Slider from "../components/Slider";
 import axios from "axios";
 import { Container } from "react-bootstrap";
 import { useEffect } from "react";
-import { useLocalStorage } from "@mantine/hooks";
 import {
     faUserCheck,
     faBowlFood,

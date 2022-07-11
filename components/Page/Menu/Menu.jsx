@@ -1,7 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 import Image from "next/image";
 import axios from "axios";
-import { useLocalStorage } from "@mantine/hooks";
 import MenuNoteComponent from "../../MenuNote";
 import { faCircleCheck, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

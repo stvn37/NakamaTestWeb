@@ -2,14 +2,21 @@ import prisma from "../../prisma/client";
 
 export default async function handler(req, res) {
     if (req.method == "POST") {
-        const {orderId} = req.body
+        const {orderId, tableNo, orderType, couponId} = req.body
 
         await prisma.order.update({
             where: {
                 id: orderId
             },
             data: {
-                finish: true
+                finish: true,
+                type: orderType,
+                tableNo: orderType === 'DineIn' ? parseInt(tableNo) : undefined,
+                coupon: {
+                    connect: {
+                        id: couponId
+                    }
+                }
             }
         })
 

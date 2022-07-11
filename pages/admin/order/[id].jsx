@@ -1,18 +1,24 @@
-import prisma from "../../prisma/client";
-import MenuNoteComponent from "../../components/MenuNote";
+import prisma from "../../../prisma/client";
+import MenuNoteComponent from "../../../components/MenuNote";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function AdminDetails({ order }) {
     const [subtotal, setSubtotal] = useState(0);
+    const [tax, setTax] = useState(0);
+    const [grandtotal, setGrandtotal] = useState(0);
 
     useEffect(() => {
-        setSubtotal(
-            order.orderItems.reduce(
-                (total, item) => total + item.menu.price * item.quantity,
-                0
-            )
+        const subtotalRaw = order.orderItems.reduce(
+            (total, item) => total + item.menu.price * item.quantity,
+            0
         );
+        const discount = order.coupon ? order.coupon.discount : 0;
+        setSubtotal(subtotalRaw);
+        const beforeTax = Math.max(subtotalRaw - discount, 0);
+        setTax((beforeTax * 10) / 100);
+        setGrandtotal((beforeTax * 110) / 100);
+        console.log(order)
     }, [order]);
 
     return (
@@ -55,10 +61,17 @@ export default function AdminDetails({ order }) {
                 ))}
 
                 <div className="bg-light p-4 d-flex flex-column gap-4">
+                    {order.coupon && <h5>Applied Coupon: {order.coupon.code}</h5>}
+
                     <h5>Subtotal: RM {subtotal}</h5>
-                    <h5>Tax: RM {(subtotal * 10) / 100}</h5>
+                    {order.coupon && (
+                        <h5 className="text-success">
+                            Discount: RM {order.coupon.discount}
+                        </h5>
+                    )}
+                    <h5>Tax: RM {tax}</h5>
                     <h4 style={{ fontWeight: "bold" }}>
-                        Grand Total: RM {(subtotal * 110) / 100}
+                        Grand Total: RM {grandtotal}
                     </h4>
                 </div>
             </div>
@@ -72,6 +85,7 @@ export async function getServerSideProps(context) {
             id: parseInt(context.params.id),
         },
         include: {
+            coupon: true,
             orderItems: {
                 include: {
                     menu: true,

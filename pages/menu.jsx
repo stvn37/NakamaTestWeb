@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import prisma from "../prisma/client";
-import { useLocalStorage } from "@mantine/hooks";
 import { useEffect } from "react";
 import { deleteCookie, getCookie } from "cookies-next";
 

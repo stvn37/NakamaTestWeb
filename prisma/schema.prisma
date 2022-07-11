@@ -60,12 +60,15 @@ model Feedback {
 }
 
 model Order {
-  id       Int       @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
   uniqueid Int
   type     OrderType?
+  tableNo  Int?
   finish   Boolean
+  couponId Int?
 
   orderItems OrderItem[]
+  coupon Coupon? @relation(fields: [couponId], references: [id], onDelete: Cascade)
 }
 
 enum OrderType {
@@ -97,6 +100,8 @@ model OrderItem {
 
 model Coupon {
   id     Int     @id @default(autoincrement())
-  code   String
+  code   String @unique
+  discount Float
   active Boolean
+  order Order[]
 }

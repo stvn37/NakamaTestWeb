@@ -1,11 +1,18 @@
-import { getSession, signOut } from "next-auth/react";
-import { Button, Table } from "react-bootstrap";
+import { getSession } from "next-auth/react";
+import { Button, Table, Modal } from "react-bootstrap";
 import axios from "axios";
-import prisma from "../../prisma/client";
+import prisma from "../../../prisma/client";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function admin({ orders }) {
     const router = useRouter();
+
+    useEffect(() => {
+        if(router.query.uniqueid) {
+            setShow(true)
+        }
+    }, [router])
 
     async function createOrder() {
         await axios
@@ -13,13 +20,16 @@ export default function admin({ orders }) {
             .then((response) =>
                 router.replace(
                     {
-                        pathname: "/admin",
+                        pathname: "/admin/order",
                         query: { uniqueid: response.data.uniqueid },
                     },
-                    '/admin'
+                    '/admin/order'
                 )
             );
     }
+
+    const [show, setShow] = useState(false)
+
     return (
         <section
             style={{
@@ -28,29 +38,8 @@ export default function admin({ orders }) {
             }}
         >
             <div className="notoSansJP text-center">
-                <h1
-                    class="entry-title"
-                    itemProp="headline"
-                    style={{
-                        textAlign: "center",
-                        fontWeight: "bold",
-                        fontSize: "28px",
-                        padding: "5px",
-                    }}
-                >
-                    Admin Login
-                </h1>
 
-                <div className="mb-2">
-                    <Button
-                        variant="danger"
-                        size="lg"
-                        onClick={() => signOut()}
-                    >
-                        Logout
-                    </Button>{" "}
-                </div>
-                <div className="text-center">
+                <div className="text-center mb-3">
                     <h1
                         class="entry-title"
                         itemProp="headline"
@@ -61,12 +50,11 @@ export default function admin({ orders }) {
                             padding: "5px",
                         }}
                     >
-                        Create New Order ID
+                        Admin Order
                     </h1>
                     <Button onClick={createOrder} variant="primary" size="lg">
-                        Set New ID
+                        Create New Order
                     </Button>{" "}
-                    {router.query.uniqueid}
                 </div>
 
                 <Table bordered hover>
@@ -74,20 +62,42 @@ export default function admin({ orders }) {
                         <tr>
                             <th>Order ID</th>
                             <th>Unique ID</th>
+                            <th>Order Type</th>
+                            <th>Table No</th>
                             <th>Finished</th>
                         </tr>
                     </thead>
                     <tbody>
                         {orders.map((order) => (
-                            <tr onClick={() => router.push(`/admin/${order.id}`)} style={{cursor: 'pointer'}}>
+                            <tr onClick={() => router.push(`/admin/order/${order.id}`)} style={{cursor: 'pointer'}}>
                                 <td>{order.id}</td>
                                 <td>{order.uniqueid}</td>
+                                <td>{order.type}</td>
+                                <td>{order.tableNo}</td>
                                 <td>{order.finish ? "Finished" : "Active"}</td>
                             </tr>
                         ))}
                     </tbody>
                 </Table>
             </div>
+
+            <Modal
+                show={show}
+                centered
+                onHide={() => setShow(false)}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>New Order Created</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Order code is: {router.query.uniqueid}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShow(false)}>
+                        Okay
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </section>
     );
 }
