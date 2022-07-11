@@ -1,16 +1,19 @@
 import logo from "../img/nakama-logo.png";
 import Image from "next/image";
-import { Container, Navbar, NavDropdown, Nav, Button } from "react-bootstrap";
-import Link from "next/link";
+import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import { useLocalStorage } from "@mantine/hooks";
 import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Navigation() {
     const router = useRouter();
-    const [orderId, setOrderId] = useLocalStorage({
-        key: "orderid",
-        defaultValue: 0,
-    });
+
+    const [orderid, setOrderid] = useState()
+    useEffect(() => {
+        setOrderid(getCookie('orderid'))
+    }, [router])
 
     return (
         <Navbar
@@ -25,29 +28,20 @@ export default function Navigation() {
                         <Image src={logo} alt="" width="150" height="48" />
                     </div>
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto mx-5 text-center">
-                        <Link href="/menu" passHref>
-                            <Nav.Link>Menu</Nav.Link>
-                        </Link>
-                        <Link href="/feedback" passHref>
-                            <Nav.Link>Feedback</Nav.Link>
-                        </Link>
-                    </Nav>
-                    <Nav className="ml-auto text-center"></Nav>
-                </Navbar.Collapse>
-                
-                <Nav.Link>
-                    <Button
-                        onClick={() => router.push(`/cart/${orderId}`)}
-                        variant="outline-secondary"
-                        id="button-addon2"
-                    >
-                        Cart
-                    </Button>
-                </Nav.Link>
+
+                {orderid && (
+                    <Nav.Link>
+                        <Button
+                            onClick={() => router.push(`/cart/${orderid}`)}
+                            variant="outline-secondary"
+                            id="button-addon2"
+                        >
+                            Cart
+                        </Button>
+                    </Nav.Link>
+                )}
             </Container>
         </Navbar>
     );
 }
+    

@@ -31,7 +31,7 @@ model Menu {
   price      Float   @db.Float
 
   orderItems OrderItem[]
-  category Category @relation(fields: [categoryid], references: [id])
+  category   Category    @relation(fields: [categoryid], references: [id])
 }
 
 model Category {
@@ -60,11 +60,17 @@ model Feedback {
 }
 
 model Order {
-  id       Int     @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   uniqueid Int
+  type     OrderType?
   finish   Boolean
 
   orderItems OrderItem[]
+}
+
+enum OrderType {
+  DineIn
+  TakeAway
 }
 
 model OrderItem {
@@ -83,8 +89,14 @@ model OrderItem {
   orderId Int
   order   Order @relation(fields: [orderId], references: [id])
 
-  menuId Int 
-  menu  Menu @relation(fields: [menuId], references: [id])
+  menuId Int
+  menu   Menu @relation(fields: [menuId], references: [id])
 
   @@unique([menuId, orderId])
+}
+
+model Coupon {
+  id     Int     @id @default(autoincrement())
+  code   String
+  active Boolean
 }

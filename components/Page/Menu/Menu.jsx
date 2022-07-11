@@ -6,19 +6,16 @@ import MenuNoteComponent from "../../MenuNote";
 import { faCircleCheck, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
+import {getCookie} from 'cookies-next'
 
 export default function MenuComponent({ item }) {
-    const [orderId, setOrderId] = useLocalStorage({
-        key: "orderid",
-        defaultValue: 0,
-    });
-
     const [status, setStatus] = useState("default");
 
     async function addItem() {
+        console.log(getCookie('orderid'))
         setStatus("loading");
         await axios
-            .post("/api/addtocart", { orderId, item })
+            .post("/api/addtocart", { orderId: parseInt(getCookie('orderid')), item })
             .then((response) => setStatus("success"))
             .catch((error) => console.log(error));
     }

@@ -6,13 +6,10 @@ import { useRouter } from "next/router";
 import { useLocalStorage } from "@mantine/hooks";
 import { useState } from "react";
 import { useEffect } from "react";
+import { deleteCookie, getCookie } from "cookies-next";
 
 export default function order({ order }) {
     const router = useRouter();
-    const [orderId, setOrderId] = useLocalStorage({
-        key: "orderid",
-        defaultValue: 0,
-    });
 
     const [subtotal, setSubtotal] = useState(0);
 
@@ -29,9 +26,9 @@ export default function order({ order }) {
 
     async function checkout() {
         await axios
-            .post("/api/checkout", { orderId })
+            .post("/api/checkout", { orderId: parseInt(getCookie('orderid')) })
             .then(() => {
-                setOrderId(undefined);
+                deleteCookie('orderid')
                 router.push("/");
             })
             .catch((error) => console.log(error));
@@ -105,7 +102,17 @@ export default function order({ order }) {
 }
 
 export async function getServerSideProps(context) {
-    console.log(context.params.id);
+    const {req, res} = context
+    const orderid = getCookie('orderid', {req, res})
+    if(!orderid) {
+        return {
+            props: {},
+            redirect: {
+                destination: '/'
+            }
+        }
+    }
+
     const order = await prisma.order.findFirst({
         where: {
             id: parseInt(context.params.id),

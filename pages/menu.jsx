@@ -13,32 +13,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import prisma from "../prisma/client";
 import { useLocalStorage } from "@mantine/hooks";
 import { useEffect } from "react";
+import { deleteCookie, getCookie } from "cookies-next";
 
 export default function Menu({ menu, category }) {
     const router = useRouter();
-    const [orderId, setOrderId] = useLocalStorage({
-        key: "orderid",
-        defaultValue: 0,
-    });
-
-    useEffect(() => {
-        if (orderId === 0) {
-            return (
-                <div
-                    className="d-flex align-items-center justify-content-center"
-                    style={{ height: "100vh" }}
-                >
-                    <h4 className="text-center">
-                        Sorry, we could not find the page you were looking for. The
-                        ID has been expired, we suggest that you request new ID to
-                        our staff, Thank you.
-                    </h4>
-                </div>
-            );
-        }
-    }, [orderId])
-
-   
 
     return (
         <section style={{ backgroundColor: "white" }}>
@@ -128,7 +106,34 @@ export default function Menu({ menu, category }) {
 }
 
 export async function getServerSideProps(context) {
+    const {req, res} = context
+    const orderid = getCookie('orderid', {req, res})
+    if(!orderid) {
+        return {
+            props: {},
+            redirect: {
+                destination: '/'
+            }
+        }
+    }
+
+    const order = await prisma.order.findUnique({
+        where: {
+            id: parseInt(orderid)
+        },
+    })
+    if(order.finish) {
+        deleteCookie('orderid', {req, res})
+        return {
+            props: {},
+            redirect: {
+                destination: '/'
+            }
+        }
+    }
+
     const { cat } = context.query;
+    
     const category = await prisma.category.findMany({});
     const menu = await prisma.menu.findMany({
         where: {
