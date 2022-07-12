@@ -32,7 +32,7 @@ export default function createMenu({ menu, categories }) {
                 spicy,
                 vege,
                 available,
-                imageUrl: image.url
+                imageUrl: image ? image.url : undefined
             })
             .then((response) =>
                 router.push(

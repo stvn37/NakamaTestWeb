@@ -71,10 +71,10 @@ model OrderItem {
   quantity Int
 
   orderId Int
-  order   Order @relation(fields: [orderId], references: [id])
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   menuId Int
-  menu   Menu @relation(fields: [menuId], references: [id])
+  menu   Menu @relation(fields: [menuId], references: [id], onDelete: Cascade)
 
   @@unique([menuId, orderId])
 }
