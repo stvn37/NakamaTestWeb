@@ -2,7 +2,7 @@ import prisma from "../../prisma/client";
 
 export default async function handler(req, res) {
     if (req.method == "POST") {
-        const { title, categoryId, price, recommend, spicy, vege} = req.body;
+        const { title, categoryId, price, recommend, spicy, vege, imageUrl} = req.body;
 
         await prisma.menu.create({
             data: {
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
                 recommend,
                 spicy,
                 vege,
-                image: '/blank.jpg'
+                image: imageUrl
             },
         });
         return res.status(201).json({ message: "Create Menu Successful" });

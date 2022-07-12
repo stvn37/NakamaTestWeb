@@ -2,7 +2,7 @@ import prisma from "../../prisma/client";
 
 export default async function handler(req, res) {
     if (req.method == "POST") {
-        const { id, title, categoryId, price, recommend, spicy, vege, available} = req.body;
+        const { id, title, categoryId, price, recommend, spicy, vege, available, imageUrl} = req.body;
 
         await prisma.menu.update({
             where: {
@@ -15,7 +15,7 @@ export default async function handler(req, res) {
                 recommend,
                 spicy,
                 vege,
-                image: '/blank.jpg',
+                image: imageUrl,
                 available
             },
         });

@@ -4,6 +4,7 @@ import axios from "axios";
 import prisma from "../../../prisma/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function admin({ menus }) {
     const router = useRouter();
@@ -48,6 +49,7 @@ export default function admin({ menus }) {
                     <thead className="bg-dark text-white">
                         <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Title</th>
                             <th>Category</th>
                             <th>Price</th>
@@ -66,6 +68,15 @@ export default function admin({ menus }) {
                                 style={{ cursor: "pointer" }}
                             >
                                 <td>{menu.id}</td>
+                                <td>
+                                    <Image 
+                                        src={menu.image}
+                                        alt={menu.title}
+                                        width={50}
+                                        height={50}
+                                        objectFit="contain"
+                                    />
+                                </td>
                                 <td>{menu.title}</td>
                                 <td>{menu.category.name}</td>
                                 <td>RM {menu.price}</td>

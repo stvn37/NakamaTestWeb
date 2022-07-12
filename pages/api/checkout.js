@@ -12,11 +12,7 @@ export default async function handler(req, res) {
                 finish: true,
                 type: orderType,
                 tableNo: orderType === 'DineIn' ? parseInt(tableNo) : undefined,
-                coupon: {
-                    connect: {
-                        id: couponId
-                    }
-                }
+                couponId
             }
         })
 

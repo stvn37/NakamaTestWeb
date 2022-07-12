@@ -60,7 +60,7 @@ export default function order({ order }) {
             })
             .then(() => {
                 deleteCookie("orderid");
-                router.push("/");
+                router.push("/finish");
             })
             .catch((error) => console.log(error));
     }

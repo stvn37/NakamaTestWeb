@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
 import prisma from "../../../prisma/client";
+import { IKContext, IKUpload } from "imagekitio-react";
+import Image from "next/image";
 
 export default function createMenu({ menu, categories }) {
     const router = useRouter();
@@ -13,7 +15,8 @@ export default function createMenu({ menu, categories }) {
     const [recommend, setRecommend] = useState(menu.recommend);
     const [spicy, setSpicy] = useState(menu.spicy);
     const [vege, setVege] = useState(menu.vege);
-    const [available, setAvailable] = useState(menu.available)
+    const [available, setAvailable] = useState(menu.available);
+    const [image, setImage] = useState(undefined);
 
     const [show, setShow] = useState(false);
 
@@ -28,13 +31,17 @@ export default function createMenu({ menu, categories }) {
                 recommend,
                 spicy,
                 vege,
-                available
+                available,
+                imageUrl: image.url
             })
             .then((response) =>
-                router.push({
-                    pathname: "/admin/menu",
-                    query: { success: "Menu Updated Successfully" },
-                }, '/admin/menu')
+                router.push(
+                    {
+                        pathname: "/admin/menu",
+                        query: { success: "Menu Updated Successfully" },
+                    },
+                    "/admin/menu"
+                )
             )
             .catch((error) => {
                 setShow(true);
@@ -99,30 +106,68 @@ export default function createMenu({ menu, categories }) {
                         <Form.Text className="text-muted"></Form.Text>
                     </Form.Group>
 
-                    <Form.Check
-                        checked={recommend}
-                        onChange={(e) => setRecommend(e.target.checked)}
-                        type="switch"
-                        label="Recommend"
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Check
+                            checked={recommend}
+                            onChange={(e) => setRecommend(e.target.checked)}
+                            type="switch"
+                            label="Recommend"
+                        />
+                        <Form.Check
+                            checked={spicy}
+                            onChange={(e) => setSpicy(e.target.checked)}
+                            type="switch"
+                            label="Spicy"
+                        />
+                        <Form.Check
+                            checked={vege}
+                            onChange={(e) => setVege(e.target.checked)}
+                            type="switch"
+                            label="Vege"
+                        />
+                        <Form.Check
+                            checked={available}
+                            onChange={(e) => setAvailable(e.target.checked)}
+                            type="checkbox"
+                            label="Available"
+                        />
+                    </Form.Group>
+
+                    <Image
+                        src={image ? image.url : menu.image}
+                        alt={menu.title}
+                        width={200}
+                        height={200}
+                        objectFit="contain"
                     />
-                    <Form.Check
-                        checked={spicy}
-                        onChange={(e) => setSpicy(e.target.checked)}
-                        type="switch"
-                        label="Spicy"
-                    />
-                    <Form.Check
-                        checked={vege}
-                        onChange={(e) => setVege(e.target.checked)}
-                        type="switch"
-                        label="Vege"
-                    />
-                    <Form.Check
-                        checked={available}
-                        onChange={(e) => setAvailable(e.target.checked)}
-                        type="checkbox"
-                        label="Available"
-                    />
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <IKContext
+                            publicKey={
+                                process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY
+                            }
+                            urlEndpoint={
+                                process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT
+                            }
+                            authenticationEndpoint={
+                                process.env.NEXT_PUBLIC_IMAGEKIT_AUTH_ENDPOINT
+                            }
+                        >
+                            <IKUpload
+                                onError={(error) => console.log(error)}
+                                onSuccess={(response) => setImage(response)}
+                            />
+                        </IKContext>
+                        {image && (
+                            <>
+                                <p className="text-success">
+                                    New Image Uploaded
+                                </p>
+                                <Button variant="warning" onClick={() => setImage(undefined)}>
+                                    Undo New Image
+                                </Button>
+                            </>
+                        )}
+                    </Form.Group>
 
                     <div className="text-center">
                         <Button
@@ -158,12 +203,12 @@ export default function createMenu({ menu, categories }) {
 export async function getServerSideProps(context) {
     const menu = await prisma.menu.findUnique({
         where: {
-            id: parseInt(context.params.id)
+            id: parseInt(context.params.id),
         },
         include: {
-            category: true
-        }
-    })
+            category: true,
+        },
+    });
     const categories = await prisma.category.findMany();
     return {
         props: { menu, categories },
