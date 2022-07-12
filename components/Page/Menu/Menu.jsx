@@ -14,7 +14,7 @@ export default function MenuComponent({ item }) {
         console.log(getCookie('orderid'))
         setStatus("loading");
         await axios
-            .post("/api/addtocart", { orderId: parseInt(getCookie('orderid')), item })
+            .post("/api/addtocart", { orderId: parseInt(getCookie('orderid')), menuId: item.id })
             .then((response) => setStatus("success"))
             .catch((error) => console.log(error));
     }
