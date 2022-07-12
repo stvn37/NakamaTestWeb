@@ -21,6 +21,8 @@ export default function order() {
     const router = useRouter();
 
     const [uniqueid, setUniqueId] = useState("");
+    const [error, setError] = useState("")
+
     async function newOrder(e) {
         e.preventDefault();
         await axios.post("/api/getorderid", { uniqueid }).then((response) => {
@@ -28,7 +30,7 @@ export default function order() {
                 setCookie('orderid', response.data.id)
                 router.push("/menu");
             } else {
-                alert("ID Invalid! Please ask Admin!");
+                setError("ID Invalid! Please ask Admin!");
             }
         });
     }
@@ -66,11 +68,16 @@ export default function order() {
                             <Form.Label></Form.Label>
                             <Form.Control
                                 value={uniqueid}
-                                onChange={(e) => setUniqueId(e.target.value)}
-                                type="text"
+                                onChange={(e) => {
+                                    setError('')
+                                    setUniqueId(e.target.value)
+                                }}
+                                type="number"
                                 placeholder="Enter ID"
                             />
-                            <Form.Text className="text-muted"></Form.Text>
+                            <Form.Text className="text-danger">
+                                {error}
+                            </Form.Text>
                         </Form.Group>
 
                         <div className="text-center">

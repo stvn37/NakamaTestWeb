@@ -15,7 +15,7 @@ export default function finish() {
             <h2>Have a nice day!</h2>
 
             <h3>We value your feedback.</h3>
-            <p>Would you like to fill out the feedback form as a a form of your satisfaction with our service?</p>
+            <p className="text-center">Would you like to fill out the feedback form as a a form of your satisfaction with our service?</p>
 
             <div className="d-flex gap-4">
                 <Link href="/"><Button>No, thank you</Button></Link>

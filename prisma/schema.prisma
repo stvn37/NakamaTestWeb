@@ -78,15 +78,6 @@ enum OrderType {
 
 model OrderItem {
   id        Int     @id @default(autoincrement())
-  image     String
-  category  String
-  title     String  @db.VarChar(255)
-  caption   String?
-  recommend Boolean
-  spicy     Boolean
-  vege      Boolean
-  price     Float   @db.Float
-
   quantity Int
 
   orderId Int

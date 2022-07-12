@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import axios from "axios";
+import {useRouter} from 'next/router'
 
 export default function feedback() {
+  const router = useRouter()
   const [show, setShow] = useState(false);
 
   const [firstName, setFirstName] = useState("");
@@ -116,11 +118,11 @@ export default function feedback() {
           </Modal.Header>
 
           <Modal.Body>
-            <p>Reservation Successful</p>
+            <p>Feedback Successful</p>
           </Modal.Body>
 
           <Modal.Footer >
-            <Button onClick={() => setShow(false)}  variant="primary">Ok</Button>
+            <Button onClick={() => router.push('/')}  variant="primary">Okay</Button>
             
           </Modal.Footer>
         </Modal>

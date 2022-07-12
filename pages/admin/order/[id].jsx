@@ -45,13 +45,12 @@ export default function AdminDetails({ order }) {
 
                 {order.orderItems.map((orderItem) => (
                     <div className="d-flex flex-wrap gap-4 mb-5">
-                        <Image src={orderItem.image} width={250} height={200} />
+                        <Image src={orderItem.menu.image} width={250} height={200} />
                         <div>
-                            <h4>{orderItem.title}</h4>
-                            <p>{orderItem.caption}</p>
+                            <h4>{orderItem.menu.title}</h4>
                             <MenuNoteComponent item={orderItem} />
                             <p style={{ fontWeight: "bold" }}>
-                                RM {orderItem.price}
+                                RM {orderItem.menu.price}
                             </p>
                             <p className="mb-0">
                                 quantity: {orderItem.quantity}

@@ -19,7 +19,7 @@ export default function createMenu({ categories }) {
 
     useEffect(() => {
         setCategoryId(categories[0].id);
-    });
+    }, []);
 
     const [show, setShow] = useState(false);
 
