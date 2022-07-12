@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-  import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/noto-sans-jp";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -8,22 +8,25 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  return (
-    <>
-      <SessionProvider session={session}>
-        <Head>
-            <title>NakamaResto</title>
-        </Head>
+    return (
+        <>
+            <SessionProvider session={session}>
+                <Head>
+                    <title>Nakama 仲間 Japanese Restaurant</title>
+                </Head>
 
-        <NextNProgress color="#352e1d" options={{ showSpinner: false }} />
-        <Navbar></Navbar>
+                <NextNProgress
+                    color="#352e1d"
+                    options={{ showSpinner: false }}
+                />
+                <Navbar></Navbar>
 
-        <Component {...pageProps} />
+                <Component {...pageProps} />
 
-        <Footer />
-      </SessionProvider>
-    </>
-  );
+                <Footer />
+            </SessionProvider>
+        </>
+    );
 }
 
 export default MyApp;

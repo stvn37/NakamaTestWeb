@@ -40,16 +40,6 @@ model Category {
   menus Menu[]
 }
 
-model Reservation {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String
-  phoneNum  String
-  dateTime  DateTime
-  persons   Int
-}
-
 model Feedback {
   id        Int    @id @default(autoincrement())
   firstName String

@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
-
 export default function Navigation() {
     const router = useRouter();
 
@@ -48,23 +47,29 @@ export default function Navigation() {
                     <>
                         <NavDropdown title="Admin">
                             <Link href="/admin/order" passHref>
-                                <NavDropdown.Item>
-                                    Order
-                                </NavDropdown.Item>
+                                <NavDropdown.Item>Order</NavDropdown.Item>
                             </Link>
                             <Link href="/admin/menu" passHref>
-                            <NavDropdown.Item href="#action/3.2">
-                               Menu
-                            </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">
+                                    Menu
+                                </NavDropdown.Item>
                             </Link>
                             <Link href="/admin/coupon" passHref>
-                            <NavDropdown.Item href="#action/3.3">
-                                Coupon
-                            </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">
+                                    Coupon
+                                </NavDropdown.Item>
+                            </Link>
+                            <Link href="/admin/feedback" passHref>
+                                <NavDropdown.Item href="#action/3.3">
+                                    Feedback
+                                </NavDropdown.Item>
                             </Link>
                             <NavDropdown.Divider />
 
-                            <NavDropdown.Item onClick={signOut} className="text-danger">
+                            <NavDropdown.Item
+                                onClick={signOut}
+                                className="text-danger"
+                            >
                                 Logout
                             </NavDropdown.Item>
                         </NavDropdown>
