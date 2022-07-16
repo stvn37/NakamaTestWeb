@@ -45,9 +45,6 @@ main ().catch (error => {
 
 const categorydata = [
     {
-        name: "Limited"
-    },
-    {
         name: "Sushi"
     },
     {
