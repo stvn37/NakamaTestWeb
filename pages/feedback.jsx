@@ -114,12 +114,10 @@ export default function feedback() {
 
         <Modal show={show} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Test</Modal.Title>
+            <Modal.Title>Feedback Successful</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
-            <p>Feedback Successful</p>
-          </Modal.Body>
+          
 
           <Modal.Footer >
             <Button onClick={() => router.push('/')}  variant="primary">Okay</Button>
