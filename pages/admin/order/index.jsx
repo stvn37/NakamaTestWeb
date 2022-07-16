@@ -64,7 +64,7 @@ export default function admin({ orders }) {
                             <th>Unique ID</th>
                             <th>Order Type</th>
                             <th>Table No</th>
-                            <th>Finished</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>

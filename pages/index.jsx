@@ -118,7 +118,7 @@ export default function order() {
                                 <h3>Step 4</h3>
                                 <p>
                                     Order is prepared and wait for a while,
-                                    enyoy your meal!
+                                    enjoy your meal!
                                 </p>
                             </Col>
                         </Row>
